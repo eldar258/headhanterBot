@@ -24,11 +24,11 @@ func Open() context.Context {
 	var buff []byte
 	err := chromedp.Run(ctx,
 		chromedp.Navigate("https://hh.ru/account/login?backurl=%2F&hhtmFrom=main&role=applicant"),
-		chromedp.SendKeys(selectorEmail, email, chromedp.NodeVisible),
-		chromedp.Click(selectorNext, chromedp.NodeVisible),
+		chromedp.SendKeys(selectorEmail, email),
+		chromedp.Click(selectorNext),
 
-		chromedp.SendKeys(selectorCode, getCode(), chromedp.NodeVisible),
-		chromedp.Click(xpathNext2, chromedp.NodeVisible),
+		chromedp.SendKeys(selectorCode, getCode()),
+		chromedp.Click(xpathNext2),
 		chromedp.WaitVisible(selectorSearch),
 
 		chromedp.FullScreenshot(&buff, 100),
