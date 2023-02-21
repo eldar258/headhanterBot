@@ -53,7 +53,6 @@ func spam(ctx context.Context, link string) error {
 	log.Println("Start spam to ", companyName)
 
 	message := strings.Replace(consts.MESSAGE_TAMPLATE, "*", companyName, -1)
-	log.Println(len(messageBtn))
 	if len(messageBtn) > 0 {
 		err = chromedp.Run(newTab,
 			chromedp.Click(selectorMessageBtn),
