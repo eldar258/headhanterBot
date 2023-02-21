@@ -18,8 +18,7 @@ const (
 )
 
 func Open() (context.Context, context.CancelFunc) {
-	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("headless", false))...)
-	ctx, cancel := chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
+	ctx, cancel := createContext(true)
 
 	err := chromedp.Run(ctx,
 		chromedp.Navigate("https://hh.ru/account/login?backurl=%2F&hhtmFrom=main&role=applicant"),
@@ -45,6 +44,12 @@ func Open() (context.Context, context.CancelFunc) {
 		log.Fatal(err)
 	}
 
+	return ctx, cancel
+}
+
+func createContext(headless bool) (context.Context, context.CancelFunc) {
+	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(chromedp.DefaultExecAllocatorOptions[:], chromedp.Flag("headless", headless))...)
+	ctx, cancel := chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 	return ctx, cancel
 }
 
